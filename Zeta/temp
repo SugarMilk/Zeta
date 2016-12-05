@@ -1,0 +1,74 @@
+
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        GTLoginViewCtrl *login = [[GTLoginViewCtrl alloc] init];
+//        [self.view.window.rootViewController presentViewController:login animated:YES completion:nil];
+//    });
+
+//    DDMenuController *_ddMenu = [(id)[[UIApplication sharedApplication] delegate] ddMenu];
+//    UINavigationController *_navgation = (id)[_ddMenu rootViewController];
+//
+//    [_ddMenu showRootController:YES];
+//
+//    GTFeedbackViewCtrl *feedback = [[GTFeedbackViewCtrl alloc] init];
+//
+//    [_navgation pushViewController:feedback animated:YES];
+
+
+
+
+- (void)viewDidLoad {
+[super viewDidLoad];
+
+[self initControls];
+
+_dataSource = [NSMutableArray array];
+
+NSDictionary *params = @{@"project_id":@"1"};
+
+[GTURLSession sessionWithString:@"phase" method:GET params:params response:^(id responseObject) {
+NSLog(@"里程碑： %@", responseObject);
+
+if ([responseObject[@"code"] isEqualToString:@"200"]) {
+NSDictionary *milestones = responseObject[@"data"];
+
+for (NSDictionary *milestone in milestones) {
+GTMilestoneModel *ms = [[GTMilestoneModel alloc] init];
+[ms setValuesForKeysWithDictionary:milestone];
+[_dataSource addObject:ms];
+}
+
+dispatch_async(dispatch_get_main_queue(), ^{
+[_tableView reloadData];
+});
+}
+
+} error:^(id error) {
+ERROR(YES, error);
+}];
+
+GTCustomer *user = [[GTAccountManager sharedManager] currentUser];
+
+NSDictionary *params2 = @{@"user_id":user.user_id,
+@"type":@"0"};
+
+[GTURLSession sessionWithString:@"personal" method:POST params:params2 response:^(id responseObject) {
+
+NSLog(@"项目： %@", responseObject);
+
+//        if ([responseObject[@"code"] isEqualToString:@"200"]) {
+//            NSDictionary *projects = responseObject[@"data"];
+//
+//            for (NSDictionary *project in projects) {
+//                GTProjectModel *proj = [[GTProjectModel alloc] init];
+//                [proj setValuesForKeysWithDictionary:project];
+//                [_dataSource addObject:proj];
+//            }
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [_tableView reloadData];
+//            });
+//        }
+} error:^(id error) {
+ERROR(YES, error);
+}];
+}

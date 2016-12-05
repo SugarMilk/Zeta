@@ -1,0 +1,95 @@
+//
+//  PrefixHeader.pch
+//  Zeta
+//
+//  Created by GOOT on 16/3/21.
+//  Copyright © 2016年 GOOT. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define screenX [UIScreen mainScreen].bounds.origin.x
+#define screenY [UIScreen mainScreen].bounds.origin.y
+#define screenW [UIScreen mainScreen].bounds.size.width
+#define screenH [UIScreen mainScreen].bounds.size.height
+
+#define GRedColor       [UIColor redColor]
+#define GBlueColor      [UIColor blueColor]
+#define GCyanColor      [UIColor cyanColor]
+#define GGreenColor     [UIColor greenColor]
+#define GOrangeColor    [UIColor orangeColor]
+#define GPurpleColor    [UIColor purpleColor]
+#define GWhiteColor     [UIColor whiteColor]
+#define GBlackColor     [UIColor blackColor]
+#define GYellowColor    [UIColor yellowColor]
+#define WAColor(W,A)    [UIColor colorWithWhite:W alpha:A]
+#define RGBColor(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1]
+
+/**
+ *  输出错误信息
+ *
+ *  @param CONDITION 判断错误成立的条件
+ *  @param MESSAGE   输出的错误信息描述
+ */
+#define ERROR(CONDITION,MESSAGE) if(CONDITION){NSLog(@"ERROR:%@%s%d",MESSAGE,__FUNCTION__,__LINE__);}
+
+#define ALERT(MESSAGE) UIAlertController *alert = [UIAlertController alertControllerWithTitle:MESSAGE message:nil preferredStyle:UIAlertControllerStyleAlert];[alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];[self presentViewController:alert animated:true completion:nil];
+
+#define AMapKey @"a2f8c0747569dd4e282ed82921ee32d3" // Bundle ID: cn.com.zetadata.ZetaApp
+
+#define _RESOURCE @"http://app.zetadata.com.cn"
+
+#define RESOURCE @"http://app.zetadata.com.cn/"
+
+#define HOSTNAME @"http://app.zetadata.com.cn/member/common/"
+
+#define CODE200  [responseObject[@"code"] isEqualToString:@"200"] // 网络请求数据获取成功
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <MAMapKit/MAMapKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+
+#import "DDMenuController.h"
+#import "XTPageControl.h"
+#import "GTURLSession.h"
+#import "KeychainItemWrapper.h"
+#import "UIImageView+WebCache.h"
+#import "UIImage+Category.h"
+#import "MJRefresh.h"
+
+#import "AppDelegate.h"
+#import "GTCustomer.h"
+#import "GTAccountManager.h"
+#import "GTLeftViewCtrl.h"
+#import "GTLoginViewCtrl.h"
+#import "GTRegistViewCtrl.h"
+#import "GTFeedbackViewCtrl.h"
+
+#import "GTIndexModel.h"
+#import "GTIndexViewCell.h"
+#import "GTIndexViewCtrl.h"
+
+#import "GTLocationModel.h"
+#import "GTLocationViewCell.h"
+#import "GTLocationViewCtrl.h"
+#import "GTRouteViewController.h"
+
+#import "GTProjectViewCtrl.h"
+
+#import "GTProjectModel.h"
+#import "GTMilestoneModel.h"
+#import "GTMilestoneViewCell.h"
+
+#import "GTProjectLeftViewCtrl.h"
+
+#import "GTProductModel.h"
+#import "GTProjectRightViewCell.h"
+#import "GTProjectRightViewCtrl.h"
+
+
+#endif /* PrefixHeader_pch */
